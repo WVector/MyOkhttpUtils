@@ -18,7 +18,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    lintOptions{
+    lintOptions {
         abortOnError false
         warning 'InvalidPackage'
     }
@@ -40,7 +40,6 @@ android {
 //makeJar.dependsOn(clearJar, build)
 
 
-
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.squareup.okhttp3:okhttp:3.4.2'
@@ -54,7 +53,5 @@ publish {
     publishVersion = '3.4.2'//版本号
     desc = '修改了鸿洋的okttp-utils的一些代码'
     website = 'https://github.com/WVector/MyOkhttpUtils'
-
-
 }
 

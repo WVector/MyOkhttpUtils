@@ -9,7 +9,7 @@
               android:paddingTop="@dimen/activity_vertical_margin"
               tools:context=".MainActivity">
 
-    <com.zhy.sample_okhttp.FlowLayout
+    <com.vector.myokhttputils.FlowLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -74,15 +74,19 @@
             android:onClick="downloadFile"
             android:text="Download File"/>
 
-        <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:onClick="otherRequestDemo"
-                android:text="otherRequestDemo"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="otherRequestDemo"
+            android:text="otherRequestDemo"/>
 
-        <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:onClick="clearSession"
-                android:text="clearSession"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="clearSession"
+            android:text="clearSession"/>
 
-    </com.zhy.sample_okhttp.FlowLayout>
+    </com.vector.myokhttputils.FlowLayout>
 
     <ProgressBar
         android:id="@+id/id_progress"
