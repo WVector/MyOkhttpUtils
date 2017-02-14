@@ -30,8 +30,7 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:25.0.1'
     testCompile 'junit:junit:4.12'
-    compile 'com.google.code.gson:gson:2.3.1'
     compile 'com.github.franmontiel:PersistentCookieJar:v0.9.3'
-    compile 'com.qianwen:okhttp-utils:3.4.2'
-//    compile project(':okhttputils')
+//    compile 'com.qianwen:okhttp-utils:3.4.2'
+    compile project(':okhttputils')
 }

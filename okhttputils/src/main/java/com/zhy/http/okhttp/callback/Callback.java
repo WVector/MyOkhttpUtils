@@ -1,5 +1,11 @@
 package com.zhy.http.okhttp.callback;
 
+import android.content.Context;
+
+import com.alibaba.fastjson.JSONException;
+import com.zhy.http.okhttp.utils.Utils;
+
+import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 
 import okhttp3.Call;
@@ -32,20 +38,40 @@ public abstract class Callback<T> {
 
     }
 
+    public abstract Context getContext();
+
     protected String validateError(Exception error, Response response) {
-        if (error != null && error instanceof SocketTimeoutException) {
-            return "网络连接超时，请稍候重试";
-        } else if (response != null) {
+        Context context = getContext();
+        if (context != null) {
+            if (!Utils.isConnected(context)) {
+                return "无网络，请联网重试";
+            }
+        }
+
+        if (error != null) {
+            if (error instanceof SocketTimeoutException) {
+                return "网络连接超时，请稍候重试";
+            } else if (error instanceof JSONException) {
+                return "json转化异常";
+            } else if (error instanceof ConnectException) {
+                return "服务器网络异常或宕机，请稍候重试";
+            }
+        }
+
+
+        if (response != null) {
             int code = response.code();
             if (code >= 500) {
                 return "服务器异常，请稍候重试";
             } else if (code < 500 && code >= 400) {
                 return "接口异常，请稍候重试";
             } else {
-                return String.format("未知异常%d，请稍候重试", code);
+                return String.format("未知异常 code = %d，请稍候重试", code);
             }
         }
-        return "网络连接超时，请稍候重试";
+
+
+        return "未知异常，请稍候重试";
 
     }
 
@@ -72,6 +98,11 @@ public abstract class Callback<T> {
 
 
     public static Callback CALLBACK_DEFAULT = new Callback() {
+
+        @Override
+        public Context getContext() {
+            return null;
+        }
 
         @Override
         public Object parseNetworkResponse(Response response, int id) throws Exception {
