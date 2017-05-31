@@ -2,7 +2,6 @@ package com.zhy.http.okhttp.callback;
 
 import com.alibaba.fastjson.JSON;
 
-import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
@@ -20,7 +19,7 @@ import okhttp3.Response;
  */
 public abstract class OuterCallback<T> extends Callback<T> {
     @Override
-    public T parseNetworkResponse(Response response, int id) throws IOException {
+    public T parseNetworkResponse(Response response, int id) throws Exception {
 
         Class clz1 = this.getClass();//this指的是在Client中真正new 的对象（ new BookDaoImpl()）
         //得到它的泛型父类

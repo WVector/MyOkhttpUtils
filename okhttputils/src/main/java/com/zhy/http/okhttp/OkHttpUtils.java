@@ -1,5 +1,7 @@
 package com.zhy.http.okhttp;
 
+import android.content.Context;
+
 import com.zhy.http.okhttp.builder.GetBuilder;
 import com.zhy.http.okhttp.builder.HeadBuilder;
 import com.zhy.http.okhttp.builder.OtherRequestBuilder;
@@ -13,12 +15,12 @@ import com.zhy.http.okhttp.request.RequestCall;
 import com.zhy.http.okhttp.utils.Platform;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLSession;
+import javax.net.ssl.SSLSocketFactory;
 
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
@@ -54,19 +56,24 @@ public class OkHttpUtils {
         return this;
     }
 
-    public OkHttpUtils sslSocketFactory(InputStream[] certificates, InputStream bksFile, String password) {
-        if (mOkHttpClient != null) {
-            HttpsUtils.SSLParams sslParams = HttpsUtils.getSslSocketFactory(certificates, bksFile, password);
+    /**
+     * 设置https协议ssl的证书
+     *
+     * @param cerName assets证书的全称
+     * @param context 环境变量
+     * @return this
+     */
+    public OkHttpUtils sslSocketFactory(String cerName, Context context) {
+        SSLSocketFactory sslSocketFactory = HttpsUtils.getSSLSocketFactory(cerName, context);
+        if (mOkHttpClient != null && sslSocketFactory != null) {
             mOkHttpClient = mOkHttpClient.newBuilder()
-                    .hostnameVerifier(new HostnameVerifier()
-                    {
+                    .hostnameVerifier(new HostnameVerifier() {
                         @Override
-                        public boolean verify(String hostname, SSLSession session)
-                        {
+                        public boolean verify(String hostname, SSLSession session) {
                             return true;
                         }
                     })
-                    .sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager)
+                    .sslSocketFactory(sslSocketFactory)
                     .build();
         }
         return this;
