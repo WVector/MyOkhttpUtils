@@ -4,7 +4,7 @@ apply plugin: 'com.novoda.bintray-release'//添加
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.0"
+    buildToolsVersion "25.0.3"
 
     defaultConfig {
         minSdkVersion 18
@@ -43,7 +43,7 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.squareup.okhttp3:okhttp:3.4.2'
-    compile 'com.alibaba:fastjson:1.1.56.android'
+    compile 'com.alibaba:fastjson:1.1.57.android'
 }
 
 //添加
@@ -51,7 +51,7 @@ publish {
     userOrg = 'qianwen'//bintray.com用户名
     groupId = 'com.qianwen'//jcenter上的路径
     artifactId = 'okhttp-utils'//项目名称
-    publishVersion = '3.4.3'//版本号
+    publishVersion = '3.5.0'//版本号
     desc = '修改了鸿洋的okttp-utils的一些代码'
     website = 'https://github.com/WVector/MyOkhttpUtils'
 }

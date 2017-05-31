@@ -5,7 +5,7 @@ import android.util.Log;
 /**
  * Created by zhy on 15/11/6.
  */
-public class L
+public class OkHttpLog
 {
     private static boolean debug = false;
 

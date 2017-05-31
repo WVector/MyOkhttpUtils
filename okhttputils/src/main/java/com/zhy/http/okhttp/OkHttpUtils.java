@@ -11,6 +11,7 @@ import com.zhy.http.okhttp.builder.PostStringBuilder;
 import com.zhy.http.okhttp.callback.Callback;
 import com.zhy.http.okhttp.https.HttpsUtils;
 import com.zhy.http.okhttp.intercepter.HttpLoggingInterceptor;
+import com.zhy.http.okhttp.intercepter.NetInterceptor;
 import com.zhy.http.okhttp.request.RequestCall;
 import com.zhy.http.okhttp.utils.Platform;
 
@@ -34,6 +35,7 @@ public class OkHttpUtils {
     private volatile static OkHttpUtils mInstance;
     private OkHttpClient mOkHttpClient;
     private Platform mPlatform;
+    private Context mContext;
 
     public OkHttpUtils(OkHttpClient okHttpClient) {
         if (okHttpClient == null) {
@@ -43,6 +45,20 @@ public class OkHttpUtils {
         }
 
         mPlatform = Platform.get();
+    }
+
+
+    public OkHttpUtils init(Context context) {
+
+        mContext = context;
+
+
+        //添加网络异常拦截器
+        if (mOkHttpClient != null) {
+            mOkHttpClient = mOkHttpClient.newBuilder().addInterceptor(new NetInterceptor()).build();
+        }
+
+        return this;
     }
 
     public OkHttpUtils timeout(long timeout) {
@@ -221,6 +237,13 @@ public class OkHttpUtils {
                 call.cancel();
             }
         }
+    }
+
+    public Context getContext() {
+        if (mContext == null) {
+            throw (new NullPointerException("必须在application中进行init初始化"));
+        }
+        return mContext;
     }
 
     public static class METHOD {

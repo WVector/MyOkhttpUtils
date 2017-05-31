@@ -1,9 +1,7 @@
 package com.zhy.http.okhttp.callback;
 
-import android.content.Context;
-
 import com.alibaba.fastjson.JSONException;
-import com.zhy.http.okhttp.utils.Utils;
+import com.zhy.http.okhttp.intercepter.NoNetWorkException;
 
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
@@ -38,18 +36,13 @@ public abstract class Callback<T> {
 
     }
 
-    public abstract Context getContext();
 
     protected String validateError(Exception error, Response response) {
-        Context context = getContext();
-        if (context != null) {
-            if (!Utils.isConnected(context)) {
-                return "无网络，请联网重试";
-            }
-        }
 
         if (error != null) {
-            if (error instanceof SocketTimeoutException) {
+            if (error instanceof NoNetWorkException) {
+                return "无网络，请联网重试";
+            } else if (error instanceof SocketTimeoutException) {
                 return "网络连接超时，请稍候重试";
             } else if (error instanceof JSONException) {
                 return "json转化异常";
@@ -99,10 +92,6 @@ public abstract class Callback<T> {
 
     public static Callback CALLBACK_DEFAULT = new Callback() {
 
-        @Override
-        public Context getContext() {
-            return null;
-        }
 
         @Override
         public Object parseNetworkResponse(Response response, int id) throws Exception {

@@ -1,6 +1,5 @@
 package com.vector.myokhttputils;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.InnerCallback;
 import com.zhy.http.okhttp.callback.OuterCallback;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private String mBaseUrl = "http://10.222.5.93/web/";
     private TextView mTv;
     private ProgressBar mProgressBar;
+
 
     public class MyStringCallback extends StringCallback {
 
@@ -69,10 +70,6 @@ public class MainActivity extends AppCompatActivity {
             mProgressBar.setProgress((int) (100 * progress));
         }
 
-        @Override
-        public Context getContext() {
-            return MainActivity.this;
-        }
     }
 
     @Override
@@ -126,11 +123,25 @@ public class MainActivity extends AppCompatActivity {
                 .execute(new UserCallback());
     }
 
+    public void getWeather(View view) {
+        OkHttpUtils
+                .get()//
+                .url("http://www.weather.com.cn/data/sk/101110101.html")//
+                .build()//
+                .execute(new InnerCallback<Weather>(Weather.class) {
+                    @Override
+                    public void onError(Call call, Response response, Exception e, int id) {
+                        mTv.setText(validateError(e, response));
+                    }
+
+                    @Override
+                    public void onResponse(Weather response, int id) {
+                        mTv.setText(response.toString());
+                    }
+                });
+    }
+
     class UserCallback extends OuterCallback<User> {
-        @Override
-        public Context getContext() {
-            return MainActivity.this;
-        }
 
         @Override
         public void onError(Call call, Response response, Exception e, int id) {

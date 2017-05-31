@@ -22,7 +22,7 @@
             android:orientation="vertical">
 
             <ProgressBar
-                android:id="@+id/id_progress"
+                android:id="@+id/pb"
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -31,26 +31,6 @@
                 tools:layout_constraintLeft_creator="1"
                 tools:layout_constraintTop_creator="1"/>
 
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="getUser"
-                android:text="getUser"/>
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="uploadFile"
-                android:text="上传"/>
-
-            <Button
-                android:id="@+id/button5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="getHtml"
-                android:text="Get Html"
-                tools:layout_constraintLeft_creator="1"
-                tools:layout_constraintTop_creator="1"/>
 
             <Button
                 android:id="@+id/button6"
@@ -61,8 +41,17 @@
                 tools:layout_constraintLeft_creator="1"
                 tools:layout_constraintTop_creator="1"/>
 
+            <Button
+                android:id="@+id/button7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="getFile"
+                android:text="下载文件"
+                tools:layout_constraintLeft_creator="1"
+                tools:layout_constraintTop_creator="1"/>
+
             <TextView
-                android:id="@+id/id_textview"
+                android:id="@+id/tv_result"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:layout_constraintBottom_creator="1"

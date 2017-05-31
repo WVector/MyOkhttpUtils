@@ -14,9 +14,8 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
 
-        OkHttpUtils.getInstance()
-                .debug(BuildConfig.DEBUG, "okhttp")
-                .timeout(40 * 1000L)
-                .sslSocketFactory(null, null, null);
+        OkHttpUtils.getInstance().init(this)
+                .debug(true, "okhttp")
+                .timeout(20 * 1000L);
     }
 }

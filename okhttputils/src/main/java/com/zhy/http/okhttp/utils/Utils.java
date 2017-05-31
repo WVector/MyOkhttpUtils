@@ -4,6 +4,8 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+import com.zhy.http.okhttp.OkHttpUtils;
+
 
 /**
  * Created by Vector
@@ -11,9 +13,13 @@ import android.net.NetworkInfo;
  */
 
 public class Utils {
+    public static Context getContext() {
+        return OkHttpUtils.getInstance().getContext();
+    }
 
-    public static boolean isConnected(Context context) {
-        ConnectivityManager connectivity = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+    public static boolean isConnected() {
+        ConnectivityManager connectivity = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         if (null != connectivity) {
             NetworkInfo info = connectivity.getActiveNetworkInfo();
             if (null != info && info.isConnected()) {
