@@ -22,9 +22,10 @@ import java.lang.Exception
  * on 2017/5/31 0031.
  */
 inline fun <reified T : Any> RequestCall.exe(destFileDir: String = "", destFileName: String = "", noinline callback: KCallback<T>.() -> Unit)
-        = execute(KCallback(destFileDir, destFileDir, T::class.java).apply(callback))
+        = execute(KCallback(destFileDir, destFileName, T::class.java).apply(callback))
 
 
+@Suppress("UNCHECKED_CAST")
 class KCallback<T>(val destFileDir: String = "", val destFileName: String = "", val clazz: Class<T>?) : Callback<T>() {
 
 
@@ -54,7 +55,6 @@ class KCallback<T>(val destFileDir: String = "", val destFileName: String = "", 
      * 进度条，下载文件
      */
     override fun inProgress(progress: Float, total: Long, id: Int) {
-        super.inProgress(progress, total, id)
         _onProgress?.invoke(progress, total, id)
     }
 
@@ -77,7 +77,6 @@ class KCallback<T>(val destFileDir: String = "", val destFileName: String = "", 
      * 结束回调
      */
     override fun onAfter(id: Int) {
-        super.onAfter(id)
         _onEnd?.invoke(id)
     }
 
@@ -85,7 +84,6 @@ class KCallback<T>(val destFileDir: String = "", val destFileName: String = "", 
      * 开始回调
      */
     override fun onBefore(request: Request?, id: Int) {
-        super.onBefore(request, id)
         request?.let { _onStart?.invoke(it, id) }
     }
 
@@ -110,10 +108,16 @@ class KCallback<T>(val destFileDir: String = "", val destFileName: String = "", 
         _onStart = listener
     }
 
+    /**
+     * 结束回调
+     */
     fun onEnd(listener: (id: Int) -> Unit) {
         _onEnd = listener
     }
 
+    /**
+     * 进度回调
+     */
     fun onProgress(listener: (progress: Float, total: Long, id: Int) -> Unit) {
         _onProgress = listener
 
