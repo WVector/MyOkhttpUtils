@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.zhy.http.okhttp.builder.GetBuilder;
 import com.zhy.http.okhttp.builder.HeadBuilder;
+import com.zhy.http.okhttp.builder.HttpParams;
 import com.zhy.http.okhttp.builder.OtherRequestBuilder;
 import com.zhy.http.okhttp.builder.PostFileBuilder;
 import com.zhy.http.okhttp.builder.PostFormBuilder;
@@ -16,6 +17,7 @@ import com.zhy.http.okhttp.request.RequestCall;
 import com.zhy.http.okhttp.utils.Platform;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
 
@@ -24,6 +26,7 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocketFactory;
 
 import okhttp3.Call;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Response;
 
@@ -36,6 +39,7 @@ public class OkHttpUtils {
     private OkHttpClient mOkHttpClient;
     private Platform mPlatform;
     private Context mContext;
+    private HttpParams mHttpParams;
 
     public OkHttpUtils(OkHttpClient okHttpClient) {
         if (okHttpClient == null) {
@@ -47,6 +51,26 @@ public class OkHttpUtils {
         mPlatform = Platform.get();
     }
 
+    public OkHttpUtils setHttpParams(HttpParams httpParams) {
+        mHttpParams = httpParams;
+        return this;
+    }
+
+    public OkHttpUtils addInterceptor(Interceptor interceptor) {
+        if (mOkHttpClient != null && interceptor != null) {
+            mOkHttpClient = mOkHttpClient.newBuilder().addInterceptor(interceptor).build();
+        }
+        return this;
+    }
+
+    public OkHttpUtils addInterceptors(List<Interceptor> interceptors) {
+        if (interceptors != null) {
+            for (Interceptor interceptor : interceptors) {
+                addInterceptor(interceptor);
+            }
+        }
+        return this;
+    }
 
     public OkHttpUtils init(Context context) {
 
@@ -244,6 +268,10 @@ public class OkHttpUtils {
             throw (new NullPointerException("必须在application中进行init初始化"));
         }
         return mContext;
+    }
+
+    public HttpParams getHttpParams() {
+        return mHttpParams;
     }
 
     public static class METHOD {

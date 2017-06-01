@@ -1,7 +1,10 @@
 package com.zhy.http.okhttp.builder;
 
+import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.request.OtherRequest;
 import com.zhy.http.okhttp.request.RequestCall;
+
+import java.util.Map;
 
 import okhttp3.RequestBody;
 
@@ -22,6 +25,13 @@ public class OtherRequestBuilder extends OkHttpRequestBuilder<OtherRequestBuilde
     @Override
     public RequestCall build()
     {
+        //添加全局参数
+        Map<String, String> map = OkHttpUtils.getInstance().getHttpParams().getParams();
+        if (this.params != null) {
+            this.params.putAll(map);
+        } else {
+            this.params = map;
+        }
         return new OtherRequest(requestBody, content, method, url, tag, params, headers,id).build();
     }
 

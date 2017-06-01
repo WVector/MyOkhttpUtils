@@ -117,8 +117,8 @@ public class MainActivity extends AppCompatActivity {
         OkHttpUtils
                 .post()//
                 .url(url)//
-                .addParams("username", "hyman")//
-                .addParams("password", "123")//
+                .addParam("username", "hyman")//
+                .addParam("password", "123")//
                 .build()//
                 .execute(new UserCallback());
     }

@@ -21,8 +21,9 @@ import java.lang.Exception
  * Created by Vector
  * on 2017/5/31 0031.
  */
-inline fun <reified T : Any> RequestCall.exe(destFileDir: String = "", destFileName: String = "", noinline callback: KCallback<T>.() -> Unit)
-        = execute(KCallback(destFileDir, destFileName, T::class.java).apply(callback))
+inline fun <reified T : Any> RequestCall.exe(destFileDir: String = "", destFileName: String = "", noinline callback: KCallback<T>.() -> Unit) {
+    execute(KCallback(destFileDir, destFileName, T::class.java).apply(callback))
+}
 
 
 @Suppress("UNCHECKED_CAST")

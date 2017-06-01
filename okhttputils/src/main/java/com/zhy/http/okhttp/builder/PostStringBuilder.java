@@ -1,7 +1,10 @@
 package com.zhy.http.okhttp.builder;
 
+import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.request.PostStringRequest;
 import com.zhy.http.okhttp.request.RequestCall;
+
+import java.util.Map;
 
 import okhttp3.MediaType;
 
@@ -29,6 +32,15 @@ public class PostStringBuilder extends OkHttpRequestBuilder<PostStringBuilder>
     @Override
     public RequestCall build()
     {
+
+        //添加全局参数
+        Map<String, String> map = OkHttpUtils.getInstance().getHttpParams().getParams();
+        if (this.params != null) {
+            this.params.putAll(map);
+        } else {
+            this.params = map;
+        }
+
         return new PostStringRequest(url, tag, params, headers, content, mediaType,id).build();
     }
 

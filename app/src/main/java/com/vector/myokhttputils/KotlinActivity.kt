@@ -42,7 +42,7 @@ class KotlinActivity : AppCompatActivity() {
 
 
         OkHttpUtils
-                .get()//
+                .post()//
                 .tag(this@KotlinActivity)
                 .url("http://www.weather.com.cn/data/sk/101110101.html")//
                 .build()//
