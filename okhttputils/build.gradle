@@ -7,7 +7,7 @@ android {
     buildToolsVersion "25.0.3"
 
     defaultConfig {
-        minSdkVersion 18
+        minSdkVersion 11
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -51,7 +51,7 @@ publish {
     userOrg = 'qianwen'//bintray.com用户名
     groupId = 'com.qianwen'//jcenter上的路径
     artifactId = 'okhttp-utils'//项目名称
-    publishVersion = '3.5.0'//版本号
+    publishVersion = '3.5.2'//版本号
     desc = '修改了鸿洋的okttp-utils的一些代码'
     website = 'https://github.com/WVector/MyOkhttpUtils'
 }
