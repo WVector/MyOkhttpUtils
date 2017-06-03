@@ -3,8 +3,8 @@ package com.zhy.http.okhttp;
 import android.content.Context;
 
 import com.zhy.http.okhttp.builder.GetBuilder;
+import com.zhy.http.okhttp.builder.GlobalParams;
 import com.zhy.http.okhttp.builder.HeadBuilder;
-import com.zhy.http.okhttp.builder.HttpParams;
 import com.zhy.http.okhttp.builder.OtherRequestBuilder;
 import com.zhy.http.okhttp.builder.PostFileBuilder;
 import com.zhy.http.okhttp.builder.PostFormBuilder;
@@ -17,7 +17,9 @@ import com.zhy.http.okhttp.request.RequestCall;
 import com.zhy.http.okhttp.utils.Platform;
 
 import java.io.IOException;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
 
@@ -39,7 +41,13 @@ public class OkHttpUtils {
     private OkHttpClient mOkHttpClient;
     private Platform mPlatform;
     private Context mContext;
-    private HttpParams mHttpParams;
+    //    private HttpParams mHttpParams;
+    private GlobalParams mGlobalParams = new GlobalParams() {
+        @Override
+        public Map<String, String> addParams() {
+            return new LinkedHashMap<>();
+        }
+    };
 
     public OkHttpUtils(OkHttpClient okHttpClient) {
         if (okHttpClient == null) {
@@ -51,8 +59,13 @@ public class OkHttpUtils {
         mPlatform = Platform.get();
     }
 
-    public OkHttpUtils setHttpParams(HttpParams httpParams) {
-        mHttpParams = httpParams;
+//    public OkHttpUtils setHttpParams(HttpParams httpParams) {
+//        mHttpParams = httpParams;
+//        return this;
+//    }
+
+    public OkHttpUtils setGlobalParams(GlobalParams globalParams) {
+        mGlobalParams = globalParams;
         return this;
     }
 
@@ -270,9 +283,13 @@ public class OkHttpUtils {
         return mContext;
     }
 
-    public HttpParams getHttpParams() {
-        return mHttpParams;
+    public GlobalParams getGlobalParams() {
+        return mGlobalParams;
     }
+
+//    public HttpParams getHttpParams() {
+//        return mHttpParams;
+//    }
 
     public static class METHOD {
         public static final String HEAD = "HEAD";

@@ -22,6 +22,6 @@ public class App extends Application {
         OkHttpUtils.getInstance().init(this)
                 .debug(true, "okhttp")
                 .timeout(20 * 1000L)
-                .setHttpParams(httpParams);
+                .setGlobalParams(new MyGlobalParams());
     }
 }

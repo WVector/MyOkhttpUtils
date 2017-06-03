@@ -18,18 +18,17 @@ public class GetBuilder extends OkHttpRequestBuilder<GetBuilder> implements HasP
     @Override
     public RequestCall build() {
         //添加全局参数
-        Map<String, String> map = OkHttpUtils.getInstance().getHttpParams().getParams();
-        if (this.params != null) {
-            this.params.putAll(map);
-        } else {
-            this.params = map;
-        }
-
+        Map<String, String> addParams = OkHttpUtils.getInstance().getGlobalParams().addParams();
         if (params != null) {
-            url = appendParams(url, params);
+            addParams.putAll(params);
         }
 
-        return new GetRequest(url, tag, params, headers, id).build();
+
+        if (addParams != null) {
+            url = appendParams(url, addParams);
+        }
+
+        return new GetRequest(url, tag, addParams, headers, id).build();
     }
 
     protected String appendParams(String url, Map<String, String> params) {

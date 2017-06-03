@@ -34,14 +34,12 @@ public class PostStringBuilder extends OkHttpRequestBuilder<PostStringBuilder>
     {
 
         //添加全局参数
-        Map<String, String> map = OkHttpUtils.getInstance().getHttpParams().getParams();
-        if (this.params != null) {
-            this.params.putAll(map);
-        } else {
-            this.params = map;
+        Map<String, String> addParams = OkHttpUtils.getInstance().getGlobalParams().addParams();
+        if (params != null) {
+            addParams.putAll(params);
         }
 
-        return new PostStringRequest(url, tag, params, headers, content, mediaType,id).build();
+        return new PostStringRequest(url, tag, addParams, headers, content, mediaType, id).build();
     }
 
 

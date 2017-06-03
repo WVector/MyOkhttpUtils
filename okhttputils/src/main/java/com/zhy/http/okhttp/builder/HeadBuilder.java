@@ -13,12 +13,10 @@ public class HeadBuilder extends GetBuilder {
     @Override
     public RequestCall build() {
         //添加全局参数
-        Map<String, String> map = OkHttpUtils.getInstance().getHttpParams().getParams();
-        if (this.params != null) {
-            this.params.putAll(map);
-        } else {
-            this.params = map;
+        Map<String, String> addParams = OkHttpUtils.getInstance().getGlobalParams().addParams();
+        if (params != null) {
+            addParams.putAll(params);
         }
-        return new OtherRequest(null, null, OkHttpUtils.METHOD.HEAD, url, tag, params, headers, id).build();
+        return new OtherRequest(null, null, OkHttpUtils.METHOD.HEAD, url, tag, addParams, headers, id).build();
     }
 }

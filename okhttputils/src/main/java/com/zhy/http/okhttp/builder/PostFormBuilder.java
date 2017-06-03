@@ -19,13 +19,11 @@ public class PostFormBuilder extends OkHttpRequestBuilder<PostFormBuilder> imple
     @Override
     public RequestCall build() {
         //添加全局参数
-        Map<String, String> map = OkHttpUtils.getInstance().getHttpParams().getParams();
-        if (this.params != null) {
-            this.params.putAll(map);
-        } else {
-            this.params = map;
+        Map<String, String> addParams = OkHttpUtils.getInstance().getGlobalParams().addParams();
+        if (params != null) {
+            addParams.putAll(params);
         }
-        return new PostFormRequest(url, tag, params, headers, files, id).build();
+        return new PostFormRequest(url, tag, addParams, headers, files, id).build();
     }
 
     public PostFormBuilder files(String key, Map<String, File> files) {

@@ -30,13 +30,11 @@ public class PostFileBuilder extends OkHttpRequestBuilder<PostFileBuilder> {
     @Override
     public RequestCall build() {
         //添加全局参数
-        Map<String, String> map = OkHttpUtils.getInstance().getHttpParams().getParams();
-        if (this.params != null) {
-            this.params.putAll(map);
-        } else {
-            this.params = map;
+        Map<String, String> addParams = OkHttpUtils.getInstance().getGlobalParams().addParams();
+        if (params != null) {
+            addParams.putAll(params);
         }
-        return new PostFileRequest(url, tag, this.params, headers, file, mediaType, id).build();
+        return new PostFileRequest(url, tag, addParams, headers, file, mediaType, id).build();
     }
 
 
