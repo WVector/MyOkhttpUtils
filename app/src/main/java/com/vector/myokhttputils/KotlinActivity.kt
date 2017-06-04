@@ -44,6 +44,7 @@ class KotlinActivity : AppCompatActivity() {
         OkHttpUtils
                 .post()//
                 .tag(this@KotlinActivity)
+                .addParam("key1", "value1")
                 .url("http://www.weather.com.cn/data/sk/101110101.html")//
                 .build()//
                 .exe<String> {
