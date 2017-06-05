@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.TextView
 import com.zhy.http.okhttp.OkHttpUtils
+import kotlinx.android.synthetic.main.activity_kotlin.*
 import java.io.File
 
 
@@ -50,7 +51,6 @@ class KotlinActivity : AppCompatActivity() {
                 .exe<String> {
                     onSucceed { response, id ->
                         mTv?.text = response
-
                         println(id)
                     }
                 }
@@ -69,6 +69,7 @@ class KotlinActivity : AppCompatActivity() {
                 .exe<File>(Environment.getExternalStorageDirectory().absolutePath, "nmydoa.apk") {
 
                     onProgress { progress, total, id ->
+                        pb?.progress = progress.toInt()
                         println(progress)
                     }
 
@@ -83,6 +84,12 @@ class KotlinActivity : AppCompatActivity() {
 
                     onSucceed { response, id ->
                         println(response.absoluteFile)
+                        tv_result?.text = response.absoluteFile.absolutePath
+                    }
+
+                    onFailed { errorMsg, e, id ->
+
+                        tv_result?.text = errorMsg
                     }
 
                 }
