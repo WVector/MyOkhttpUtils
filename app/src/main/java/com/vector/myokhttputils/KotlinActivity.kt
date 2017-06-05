@@ -45,13 +45,17 @@ class KotlinActivity : AppCompatActivity() {
         OkHttpUtils
                 .post()//
                 .tag(this@KotlinActivity)
-                .addParam("key1", "value1")
-                .url("http://www.weather.com.cn/data/sk/101110101.html")//
+                .addParam("key1", "++++")
+                .url("http://httpbin.org/delay/6")//
                 .build()//
                 .exe<String> {
                     onSucceed { response, id ->
                         mTv?.text = response
-                        println(id)
+                        println(response)
+                    }
+
+                    onFailed { errorMsg, e, id ->
+                        println(errorMsg)
                     }
                 }
 
@@ -64,6 +68,7 @@ class KotlinActivity : AppCompatActivity() {
         OkHttpUtils
                 .get()//
                 .tag(this@KotlinActivity)
+
                 .url("https://app.nm139.com:8443/nmydoa/nmydoa.apk")//
                 .build()//
                 .exe<File>(Environment.getExternalStorageDirectory().absolutePath, "nmydoa.apk") {
@@ -93,6 +98,7 @@ class KotlinActivity : AppCompatActivity() {
                     }
 
                 }
+
 
     }
 }
