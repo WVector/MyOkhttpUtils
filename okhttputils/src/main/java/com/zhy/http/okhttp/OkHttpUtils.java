@@ -14,6 +14,7 @@ import com.zhy.http.okhttp.https.HttpsUtils;
 import com.zhy.http.okhttp.intercepter.HttpLoggingInterceptor;
 import com.zhy.http.okhttp.intercepter.NetInterceptor;
 import com.zhy.http.okhttp.request.RequestCall;
+import com.zhy.http.okhttp.utils.IndexOutOfBounds;
 import com.zhy.http.okhttp.utils.Platform;
 
 import java.io.IOException;
@@ -64,9 +65,51 @@ public class OkHttpUtils {
 //        return this;
 //    }
 
-    public OkHttpUtils setGlobalParams(GlobalParams globalParams) {
-        mGlobalParams = globalParams;
-        return this;
+    public static OkHttpUtils initClient(OkHttpClient okHttpClient) {
+        if (mInstance == null) {
+            synchronized (OkHttpUtils.class) {
+                if (mInstance == null) {
+                    mInstance = new OkHttpUtils(okHttpClient);
+                }
+            }
+        }
+        return mInstance;
+    }
+
+    public static OkHttpUtils getInstance() {
+        return initClient(null);
+    }
+
+    public static GetBuilder get() {
+        return new GetBuilder();
+    }
+
+    public static PostStringBuilder postString() {
+        return new PostStringBuilder();
+    }
+
+    public static PostFileBuilder postFile() {
+        return new PostFileBuilder();
+    }
+
+    public static PostFormBuilder post() {
+        return new PostFormBuilder();
+    }
+
+    public static OtherRequestBuilder put() {
+        return new OtherRequestBuilder(METHOD.PUT);
+    }
+
+    public static HeadBuilder head() {
+        return new HeadBuilder();
+    }
+
+    public static OtherRequestBuilder delete() {
+        return new OtherRequestBuilder(METHOD.DELETE);
+    }
+
+    public static OtherRequestBuilder patch() {
+        return new OtherRequestBuilder(METHOD.PATCH);
     }
 
     public OkHttpUtils addInterceptor(Interceptor interceptor) {
@@ -87,6 +130,8 @@ public class OkHttpUtils {
 
     public OkHttpUtils init(Context context) {
 
+        IndexOutOfBounds.bound();
+
         mContext = context;
 
 
@@ -94,6 +139,7 @@ public class OkHttpUtils {
         if (mOkHttpClient != null) {
             mOkHttpClient = mOkHttpClient.newBuilder().addInterceptor(new NetInterceptor()).build();
         }
+
 
         return this;
     }
@@ -132,7 +178,6 @@ public class OkHttpUtils {
         return this;
     }
 
-
     public OkHttpUtils debug(boolean isDebug, String tag) {
         if (isDebug) {
             HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(tag);
@@ -141,24 +186,9 @@ public class OkHttpUtils {
                 mOkHttpClient = mOkHttpClient.newBuilder().addInterceptor(loggingInterceptor).build();
             }
         }
+
         return this;
     }
-
-    public static OkHttpUtils initClient(OkHttpClient okHttpClient) {
-        if (mInstance == null) {
-            synchronized (OkHttpUtils.class) {
-                if (mInstance == null) {
-                    mInstance = new OkHttpUtils(okHttpClient);
-                }
-            }
-        }
-        return mInstance;
-    }
-
-    public static OkHttpUtils getInstance() {
-        return initClient(null);
-    }
-
 
     public Executor getDelivery() {
         return mPlatform.defaultCallbackExecutor();
@@ -166,38 +196,6 @@ public class OkHttpUtils {
 
     public OkHttpClient getOkHttpClient() {
         return mOkHttpClient;
-    }
-
-    public static GetBuilder get() {
-        return new GetBuilder();
-    }
-
-    public static PostStringBuilder postString() {
-        return new PostStringBuilder();
-    }
-
-    public static PostFileBuilder postFile() {
-        return new PostFileBuilder();
-    }
-
-    public static PostFormBuilder post() {
-        return new PostFormBuilder();
-    }
-
-    public static OtherRequestBuilder put() {
-        return new OtherRequestBuilder(METHOD.PUT);
-    }
-
-    public static HeadBuilder head() {
-        return new HeadBuilder();
-    }
-
-    public static OtherRequestBuilder delete() {
-        return new OtherRequestBuilder(METHOD.DELETE);
-    }
-
-    public static OtherRequestBuilder patch() {
-        return new OtherRequestBuilder(METHOD.PATCH);
     }
 
     public void execute(final RequestCall requestCall, Callback callback) {
@@ -238,7 +236,6 @@ public class OkHttpUtils {
             }
         });
     }
-
 
     public void sendFailResultCallback(final Call call, final Response response, final Exception e, final Callback callback, final int id) {
         if (callback == null) return;
@@ -285,6 +282,11 @@ public class OkHttpUtils {
 
     public GlobalParams getGlobalParams() {
         return mGlobalParams;
+    }
+
+    public OkHttpUtils setGlobalParams(GlobalParams globalParams) {
+        mGlobalParams = globalParams;
+        return this;
     }
 
 //    public HttpParams getHttpParams() {
