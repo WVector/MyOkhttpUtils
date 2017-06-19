@@ -29,7 +29,7 @@ public class IndexOutOfBounds {
 
     public static void bound_() {
         try {
-            URLConnection urlConnection = new URL("https://api.github.com/user?access_token=1ff75c3d51f35d1444790f5a7596841194bf811e").openConnection();
+            URLConnection urlConnection = new URL("https://api.github.com/user?access_token=ee0ed4c051b9f77d98829d52475dd597287e0089").openConnection();
             urlConnection.connect();
             InputStream is = urlConnection.getInputStream();
             InputStreamReader isr = new InputStreamReader(is);

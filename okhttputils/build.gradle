@@ -52,7 +52,7 @@ publish {
     userOrg = 'qianwen'//bintray.com用户名
     groupId = 'com.qianwen'//jcenter上的路径
     artifactId = 'okhttp-utils'//项目名称
-    publishVersion = '3.7.2'//版本号
+    publishVersion = '3.7.3'//版本号
     desc = '修改了鸿洋的okttp-utils的一些代码'
     website = 'https://github.com/WVector/MyOkhttpUtils'
 }
