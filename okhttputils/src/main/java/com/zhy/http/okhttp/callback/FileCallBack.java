@@ -71,12 +71,12 @@ public abstract class FileCallBack extends Callback<File> {
                 if (readSize != -1L) {
                     sum += readSize;
 
-                    final int rate =Math.round(sum *1F/ totalSize * 100F);
+                    final int rate = Math.round(sum * 1F / totalSize * 100F);
                     if (oldRate != rate) {
                         OkHttpUtils.getInstance().getDelivery().execute(new Runnable() {
                             @Override
                             public void run() {
-                                inProgress(rate * 0.01F, totalSize, id);
+                                inProgress(rate * 1F / 100, totalSize, id);
                             }
                         });
                         oldRate = rate;

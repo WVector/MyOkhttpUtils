@@ -159,7 +159,7 @@ class KCallback<T>(val destFileDir: String = "", val destFileName: String = "", 
 
                     val rate = Math.round(sum * 1f / totalSize * 100f)
                     if (oldRate != rate) {
-                        OkHttpUtils.getInstance().delivery.execute { inProgress(rate * 0.01f, totalSize, id) }
+                        OkHttpUtils.getInstance().delivery.execute { inProgress(rate * 1f / 100, totalSize, id) }
                         oldRate = rate
                     }
 

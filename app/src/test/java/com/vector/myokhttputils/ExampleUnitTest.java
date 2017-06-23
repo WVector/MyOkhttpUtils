@@ -2,10 +2,6 @@ package com.vector.myokhttputils;
 
 import org.junit.Test;
 
-import java.net.URLDecoder;
-import java.net.URLEncoder;
-
-import static com.vector.myokhttputils.Encode.FORM_ENCODE_SET;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -20,11 +16,14 @@ public class ExampleUnitTest {
 //        System.out.println(MyUrlUtils.decode("+++", "UTF-8"));
         //
 //
-        System.out.println(Encode.canonicalize("+ +%20", FORM_ENCODE_SET, false, true, true, true));
-        System.out.println(MyUrlUtils.encode("aA0 -_.*", "UTF-8"));
+//        System.out.println(Encode.canonicalize("+ +%20", FORM_ENCODE_SET, false, true, true, true));
+//        System.out.println(MyUrlUtils.encode("aA0 -_.*", "UTF-8"));
+//
+//        System.out.println(URLEncoder.encode(" +  ", "UTF-8"));
+//        System.out.println(URLDecoder.decode("+", "UTF-8"));
 
-        System.out.println(URLEncoder.encode(" +  ", "UTF-8"));
-        System.out.println(URLDecoder.decode("+", "UTF-8"));
+        System.out.println(79 * 1F / 100);
+        System.out.println(79 * 0.01F);
 
 
         assertEquals(4, 2 + 2);
