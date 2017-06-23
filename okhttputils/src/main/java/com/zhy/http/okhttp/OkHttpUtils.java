@@ -14,7 +14,6 @@ import com.zhy.http.okhttp.https.HttpsUtils;
 import com.zhy.http.okhttp.intercepter.HttpLoggingInterceptor;
 import com.zhy.http.okhttp.intercepter.NetInterceptor;
 import com.zhy.http.okhttp.request.RequestCall;
-import com.zhy.http.okhttp.utils.IndexOutOfBounds;
 import com.zhy.http.okhttp.utils.Platform;
 
 import java.io.IOException;
@@ -130,7 +129,7 @@ public class OkHttpUtils {
 
     public OkHttpUtils init(Context context) {
 
-        IndexOutOfBounds.bound();
+//        IndexOutOfBounds.bound();
 
         mContext = context;
 
