@@ -6,7 +6,7 @@ package com.vector.myokhttputils.learncar;
  */
 
 public interface Constant {
-    String myId = "150222199001272634";
+    String myId = "";
 
     String idcard = "idcard";
     String photo = "photo";
