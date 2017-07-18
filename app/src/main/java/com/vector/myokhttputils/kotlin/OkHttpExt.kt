@@ -1,4 +1,4 @@
-package com.vector.myokhttputils
+package com.vector.myokhttputils.kotlin
 
 import android.util.Log
 import com.alibaba.fastjson.JSON

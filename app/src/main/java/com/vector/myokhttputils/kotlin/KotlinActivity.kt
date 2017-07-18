@@ -1,4 +1,4 @@
-package com.vector.myokhttputils
+package com.vector.myokhttputils.kotlin
 
 import android.os.Bundle
 import android.os.Environment
@@ -7,6 +7,7 @@ import android.util.Base64
 import android.view.View
 import android.widget.TextView
 import com.alibaba.fastjson.JSON
+import com.vector.myokhttputils.R
 import com.zhy.http.okhttp.OkHttpUtils
 import kotlinx.android.synthetic.main.activity_kotlin.*
 import java.io.File
@@ -114,14 +115,12 @@ class KotlinActivity : AppCompatActivity() {
                         println("------------------------------开始下载")
                     }
 
-
                     onSucceed { response, id ->
                         println(response.absoluteFile)
                         tv_result?.text = response.absoluteFile.absolutePath
                     }
 
                     onFailed { errorMsg, e, id ->
-
                         tv_result?.text = errorMsg
                     }
 
