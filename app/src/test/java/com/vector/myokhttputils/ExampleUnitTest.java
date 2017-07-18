@@ -25,8 +25,36 @@ import static org.junit.Assert.assertEquals;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 public class ExampleUnitTest {
-
     private String[] train_pics = {Pic.train_1, Pic.train_2, Pic.train_3, Pic.train_4, Pic.train_5, Pic.train_6};
+
+    @Test
+    public void learn1() throws Exception {
+        int number = 20;
+
+
+        String startTime = "2017-07-17 09:43:51";
+
+        String trainid = "3115022219900127263409435149";
+
+        train(number, trainid);
+
+
+        String photoid = "15ed4806755745d6b8f6fcedb77cdc1e";
+
+        String id = "be5d113f20594ae2a50a1c2fa4da1751";
+
+
+        commit(
+                photoid,
+                id,
+                trainid,
+                startTime,
+                number * 3 + ""
+        );
+
+        assertEquals(4, 2 + 2);
+
+    }
 
     @Test
     public void test1() throws IOException {
@@ -47,7 +75,7 @@ public class ExampleUnitTest {
 
         String trainid = "41" + Constant.myId + TimeUtil.HHmmss.format(startTime) + "36";
 
-        train(number, startTime, trainid);
+        train(number, trainid);
 
         JsonModel1.DatasBean datasBean = jsonModel1.datas.get(0);
 
@@ -121,10 +149,10 @@ public class ExampleUnitTest {
         return jsonModel1;
     }
 
-    public void train(int number, long startTime, String trainid) throws ParseException, IOException {
+    public void train(int number, String trainid) throws ParseException, IOException {
 
 
-        System.out.println("2，开始上传图片" + TimeUtil.myyyy_MM_dd_HH_mm_ss.format(new Date(startTime)));
+        System.out.println("2，开始上传图片");
 
 
         Train train = new Train();
@@ -149,7 +177,8 @@ public class ExampleUnitTest {
             System.out.println(train.collecttime);
             String format = TimeUtil.HHmmss.format(now);
 
-            train.recordid = "48" + train.idcard + format + "48";
+            String s = (new Random().nextInt(100) + 1) + "";
+            train.recordid = s + train.idcard + format + s;
 
             final String trainJson = JSON.toJSONString(train);
 

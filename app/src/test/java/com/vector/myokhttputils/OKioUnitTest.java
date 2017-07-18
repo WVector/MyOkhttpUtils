@@ -189,7 +189,7 @@ public class OKioUnitTest {
 
     @Test
     public void createImage() {
-        String destPath = "C:\\Users\\wvector\\Desktop\\test2.png";
+        String destPath = "C:\\Users\\wvector\\Desktop\\test3.png";
         Sink sink = null;
         try {
             File file = new File(destPath);
@@ -201,7 +201,7 @@ public class OKioUnitTest {
 
             BufferedSink bufferedSink = Okio.buffer(sink);
 
-            bufferedSink.write(Base64Utils.decode(Pic.train_2));
+            bufferedSink.write(Base64Utils.decode(Pic.value4));
 
             bufferedSink.emit();
 
@@ -212,6 +212,18 @@ public class OKioUnitTest {
         }
 
 
+    }
+
+    @Test
+    public void readImgInfo() {
+        File jpegFile = new File("D:\\我的文档\\我的相册\\DSCF1749.JPG");
+//        Metadata metadata = JpegMetadataReader.readMetadata(jpegFile);
+//        ContactsContract.Directory exif = metadata.getDirectory(ExifDirectory.class);
+//        Iterator tags = exif.getTagIterator();
+//        while (tags.hasNext()) {
+//            Tag tag = (Tag)tags.next();
+//            System.out.println(tag);
+//        }
     }
 
     @Test
