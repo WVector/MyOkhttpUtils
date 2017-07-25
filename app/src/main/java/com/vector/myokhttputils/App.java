@@ -3,7 +3,6 @@ package com.vector.myokhttputils;
 import android.app.Application;
 
 import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.builder.HttpParams;
 
 /**
  * Created by Vector
@@ -15,11 +14,8 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
 
-
-        HttpParams httpParams = new HttpParams();
-        httpParams.addParam("key1", "value1");
-
-        OkHttpUtils.getInstance().init(this)
+        OkHttpUtils.getInstance()
+                .init(this)
                 .debug(true, "okhttp")
                 .timeout(6 * 1000L)
                 .setGlobalParams(new MyGlobalParams());
