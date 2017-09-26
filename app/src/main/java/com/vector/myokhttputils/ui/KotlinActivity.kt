@@ -10,6 +10,7 @@ import com.alibaba.fastjson.JSON
 import com.vector.myokhttputils.R
 import com.vector.okhttp_utils_kotlin.exe
 import com.zhy.http.okhttp.OkHttpUtils
+import kotlinx.android.synthetic.main.activity_kotlin.*
 import java.io.File
 
 
@@ -88,7 +89,7 @@ class KotlinActivity : AppCompatActivity() {
     }
 
     fun print(str: String) {
-        kotlinx.android.synthetic.main.activity_kotlin.tv_result.text = str
+        tv_result.text = str
     }
 
     fun getFile(view: View) {
@@ -102,7 +103,7 @@ class KotlinActivity : AppCompatActivity() {
                 .build()//
                 .exe<File>(Environment.getExternalStorageDirectory().absolutePath, "nmydoa.apk") {
                     onProgress { progress, total, id ->
-                        kotlinx.android.synthetic.main.activity_kotlin.pb.progress = progress.toInt()
+                        pb.progress = progress.toInt()
                         println(progress)
                     }
 
@@ -116,11 +117,11 @@ class KotlinActivity : AppCompatActivity() {
 
                     onSucceed { response, id ->
                         println(response.absoluteFile)
-                        kotlinx.android.synthetic.main.activity_kotlin.tv_result.text = response.absoluteFile.absolutePath
+                        tv_result.text = response.absoluteFile.absolutePath
                     }
 
                     onFailed { errorMsg, e, id ->
-                        kotlinx.android.synthetic.main.activity_kotlin.tv_result.text = errorMsg
+                        tv_result.text = errorMsg
                     }
 
                 }

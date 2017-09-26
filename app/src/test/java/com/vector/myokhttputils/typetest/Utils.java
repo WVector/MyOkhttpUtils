@@ -1,10 +1,4 @@
-package com.zhy.http.okhttp.utils;
-
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-
-import com.zhy.http.okhttp.OkHttpUtils;
+package com.vector.myokhttputils.typetest;
 
 import java.lang.reflect.GenericArrayType;
 import java.lang.reflect.ParameterizedType;
@@ -23,23 +17,7 @@ import okhttp3.RequestBody;
  */
 
 public class Utils {
-    public static Context getContext() {
-        return OkHttpUtils.getInstance().getContext();
-    }
 
-
-    public static boolean isConnected() {
-        ConnectivityManager connectivity = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (null != connectivity) {
-            NetworkInfo info = connectivity.getActiveNetworkInfo();
-            if (null != info && info.isConnected()) {
-                if (info.getState() == NetworkInfo.State.CONNECTED) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
 
     /**
      * find the type by interfaces
@@ -163,5 +141,18 @@ public class Utils {
     public static <T> Type findRawType(Class<T> cls) {
         Type genType = cls.getGenericSuperclass();
         return getGenericType((ParameterizedType) genType, 0);
+    }
+
+    public static <T> Type find(Class<T> cls) {
+
+        //this指的是在Client中真正new 的对象（ new BookDaoImpl()）
+        //得到它的泛型父类
+        Type type = cls.getGenericSuperclass();
+
+        //3.将type转化为ParameterizedType,因为它可以取<>中的数据
+        ParameterizedType pt = (ParameterizedType) type;
+
+        //4.得到<T>的具体取值
+        return pt.getActualTypeArguments()[0];
     }
 }

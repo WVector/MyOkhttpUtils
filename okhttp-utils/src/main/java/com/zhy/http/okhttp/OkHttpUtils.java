@@ -17,6 +17,7 @@ import com.zhy.http.okhttp.request.RequestCall;
 import com.zhy.http.okhttp.utils.Platform;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -161,7 +162,7 @@ public class OkHttpUtils {
      * @param context 环境变量
      * @return this
      */
-    public OkHttpUtils sslSocketFactory(String cerName, Context context) {
+    public OkHttpUtils setCertificate(String cerName, Context context) {
         SSLSocketFactory sslSocketFactory = HttpsUtils.getSSLSocketFactory(cerName, context);
         if (mOkHttpClient != null && sslSocketFactory != null) {
             mOkHttpClient = mOkHttpClient.newBuilder()
@@ -172,6 +173,26 @@ public class OkHttpUtils {
                         }
                     })
                     .sslSocketFactory(sslSocketFactory)
+                    .build();
+        }
+        return this;
+    }
+
+
+    /**
+     * https的全局自签名证书
+     */
+    public OkHttpUtils setCertificates(InputStream... certificates) {
+        HttpsUtils.SSLParams sslParams = HttpsUtils.getSslSocketFactory(null, null, certificates);
+        if (mOkHttpClient != null) {
+            mOkHttpClient = mOkHttpClient.newBuilder()
+                    .hostnameVerifier(new HostnameVerifier() {
+                        @Override
+                        public boolean verify(String hostname, SSLSession session) {
+                            return true;
+                        }
+                    })
+                    .sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager)
                     .build();
         }
         return this;

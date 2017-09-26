@@ -14,8 +14,7 @@ import com.vector.myokhttputils.bean.User;
 import com.vector.myokhttputils.bean.Weather;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.FileCallBack;
-import com.zhy.http.okhttp.callback.InnerCallback;
-import com.zhy.http.okhttp.callback.OuterCallback;
+import com.zhy.http.okhttp.callback.SimpleCallback;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import java.io.File;
@@ -69,7 +68,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getHtml(View view) {
-        OkHttpUtils.get().url("http://www.baidu.com").build().execute(new MyStringCallback());
+        String url = "https://kyfw.12306.cn/otn/";
+        String url1 = "https://app.nm139.com:8443/nmyd/xcysoft/mobile/mobileEncryptLogin.ht?device=%2BEJrANE72jTm7cIh8zjjiWWB5rXrZeX7&password=7WffoT%2BMYFTK0LTTxfRF8Q%3D%3D&describe=f4%2FVYyhKdHop%2BS4wI9br1w%3D%3D&production=true&username=JNHDhICEhFAIrvzFU1bqJw%3D%3D&imei=866146033812920&mac=50%3A8f%3A4c%3Afb%3A42%3Abe&clientVersion=193&OperType=Android&deviceType=MI%206%7C7.1.1";
+
+//        String url = "https://app.nm139.com:8443/nmydoa/nmydoa.html";
+        OkHttpUtils.get().url(url1).build().execute(new MyStringCallback());
+        OkHttpUtils.get().url(url).build().execute(new MyStringCallback());
     }
 
     public void getUser(View view) {
@@ -88,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
                 .get()//
                 .url("http://www.weather.com.cn/data/sk/101110101.html")//
                 .build()//
-                .execute(new InnerCallback<Weather>(Weather.class) {
+                .execute(new SimpleCallback<Weather>() {
                     @Override
                     public void onError(Call call, Response response, Exception e, int id) {
                         mTv.setText(validateError(e, response));
@@ -179,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    class UserCallback extends OuterCallback<User> {
+    class UserCallback extends SimpleCallback<User> {
 
         @Override
         public void onError(Call call, Response response, Exception e, int id) {

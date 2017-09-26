@@ -27,18 +27,16 @@ inline fun <reified T : Any> RequestCall.exe(destFileDir: String = "", destFileN
 
 
 @Suppress("UNCHECKED_CAST")
-class KCallback<T>(val destFileDir: String = "", val destFileName: String = "", val clazz: Class<T>?) : Callback<T>() {
+class KCallback<T>(private val destFileDir: String = "", private val destFileName: String = "", private val clazz: Class<T>?) : Callback<T>() {
 
 
     @Throws(IOException::class)
-    override fun parseNetworkResponse(response: Response, id: Int): T {
-        if (clazz == String::class.java) {
-            return response.body().string() as T
-        } else if (clazz == File::class.java) {
-            return saveFile(response, id) as T
-        } else {
+    override fun parseNetworkResponse(response: Response, id: Int): T = when (clazz) {
+        String::class.java -> response.body().string() as T
+        File::class.java -> saveFile(response, id) as T
+        else -> {
             val string = response.body().string()
-            return JSON.parseObject(string, clazz)
+            JSON.parseObject(string, clazz)
         }
     }
 
