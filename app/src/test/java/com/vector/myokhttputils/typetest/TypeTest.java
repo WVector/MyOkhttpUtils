@@ -11,8 +11,6 @@ public class TypeTest {
     @Test
     public void test1() {
 
-        new TypeImpl<String>() {
-        }.paser();
 
 
     }

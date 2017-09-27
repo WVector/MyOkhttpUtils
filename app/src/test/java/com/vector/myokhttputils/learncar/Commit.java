@@ -31,7 +31,7 @@ public class Commit {
      */
 
     public String datatype = "2";
-    public String idcard = "150222199001272634";
+    public String idcard = "";
     public String itemcode = "1-1";
     public String coachfaceid;
     public String inphotoid;

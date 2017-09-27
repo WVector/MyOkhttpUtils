@@ -130,7 +130,6 @@ public class OkHttpUtils {
 
     public OkHttpUtils init(Context context) {
 
-//        IndexOutOfBounds.bound();
 
         mContext = context;
 
