@@ -3,9 +3,11 @@ package com.zhy.http.okhttp.utils;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.text.TextUtils;
 
 import com.zhy.http.okhttp.OkHttpUtils;
 
+import java.io.File;
 import java.lang.reflect.GenericArrayType;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -27,7 +29,14 @@ public class Utils {
         return OkHttpUtils.getInstance().getContext();
     }
 
+    public static String getFileName(String filePath) {
+        if (TextUtils.isEmpty(filePath)) {
+            return filePath;
+        }
 
+        int filePosi = filePath.lastIndexOf(File.separator);
+        return (filePosi == -1) ? filePath : filePath.substring(filePosi + 1);
+    }
     public static boolean isConnected() {
         ConnectivityManager connectivity = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         if (null != connectivity) {

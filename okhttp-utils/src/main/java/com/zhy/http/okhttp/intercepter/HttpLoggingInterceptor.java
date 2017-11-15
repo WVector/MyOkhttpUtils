@@ -45,6 +45,9 @@ public class HttpLoggingInterceptor implements Interceptor {
      * of code points to detect unicode control characters commonly used in binary file signatures.
      */
     static boolean isPlaintext(MediaType mediaType) {
+        if (mediaType == null) {
+            return false;
+        }
         if (mediaType.type() != null && mediaType.type().equals("text")) {
             return true;
         }

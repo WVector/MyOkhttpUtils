@@ -107,9 +107,30 @@ public class MainActivity extends AppCompatActivity {
 
     public void downloadApp(View view) {
 
-        String url = "http://47.94.102.201:80/online/appDownFile/yimiao-0.7.0-2017-06-22-release.apk";
-        String fileName = "test.app";
+        String url = "https://quasi.nm139.com:8442/waptemp/f1692dc5-747f-4aed-b0c3-7a11fc873c94.rar";
+        String fileName = "关于表彰全区优秀质量管理小组、质量管理小组活动优秀企业、质量管理小组活动优秀组织单位、质量管理小组活动卓越领导者和优秀推进者及全区质量信得过班组、质量信得过班组建设优秀企业和质量信得过班组建设先进个人的决定.rar";
+
+
         String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();
+//
+//        String filePath = path.concat(File.separator).concat(fileName);
+//
+//        File file = new File(filePath);
+//
+//        try {
+//            if (file.createNewFile()) {
+//
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        if (file.exists()) {
+//            System.out.println(file.getAbsolutePath());
+//        } else {
+//            System.out.println("不存在");
+//        }
+
 
         OkHttpUtils.get()
                 .url(url)
