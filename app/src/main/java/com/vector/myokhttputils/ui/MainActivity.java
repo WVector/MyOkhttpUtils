@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         File file = new File(Environment.getExternalStorageDirectory(), "aa.apk");
         if (!file.exists()) {
             Toast.makeText(MainActivity.this, "文件不存在，请修改文件路径", Toast.LENGTH_SHORT).show();
-            return;
+//            return;
         }
         Map<String, String> params = new HashMap<>();
         params.put("account", "张三");
