@@ -2,6 +2,7 @@ package com.vector.myokhttputils;
 
 import android.app.Application;
 
+import com.lzy.okgo.OkGo;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.io.IOException;
@@ -23,6 +24,9 @@ public class App extends Application {
                 .timeout(20 * 1000L);
 //                .setGlobalParams(new MyGlobalParams());
 //                .setCertificates(getOpenIn("12306.cer"), getOpenIn("nm139.cer"));
+
+
+        OkGo.getInstance().init(this);
 
     }
 
