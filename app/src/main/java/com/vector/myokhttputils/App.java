@@ -8,6 +8,8 @@ import com.zhy.http.okhttp.OkHttpUtils;
 import java.io.IOException;
 import java.io.InputStream;
 
+import okhttp3.OkHttpClient;
+
 /**
  * Created by Vector
  * on 2017/2/6 0006.
@@ -23,10 +25,17 @@ public class App extends Application {
                 .debug(true, "okhttp")
                 .timeout(20 * 1000L);
 //                .setGlobalParams(new MyGlobalParams());
-//                .setCertificates(getOpenIn("12306.cer"), getOpenIn("nm139.cer"));
+//                .setCertificate("8445.cer",this);
+//                .setCertificates(getOpenIn("8445.cer"));
+//                .setCertificates(null);
 
 
-        OkGo.getInstance().init(this);
+        OkHttpClient.Builder builder = OkGo.getInstance().init(this).getOkHttpClient().newBuilder();
+
+
+        HttpsUtils.SSLParams sslParams = HttpsUtils.getSslSocketFactory(HttpsUtils.chooseTrustManager(HttpsUtils.prepareTrustManager(getOpenIn("8445.cer"))));
+        builder.sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager);
+        builder.hostnameVerifier(HttpsUtils.UnSafeHostnameVerifier);
 
     }
 

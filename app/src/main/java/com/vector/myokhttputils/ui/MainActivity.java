@@ -9,7 +9,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.lzy.okgo.OkGo;
 import com.vector.myokhttputils.R;
 import com.vector.myokhttputils.bean.User;
 import com.vector.myokhttputils.bean.Weather;
@@ -69,22 +68,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getHtml(View view) {
-        String url = "https://kyfw.12306.cn/otn/";
+//        String url = "https://kyfw.12306.cn/otn/";
+        String url = "https://app.nm139.com:8443/nmydoa/nmydoa.html";
+        String url1 = "https://app.nm139.com:8443/nmyd/xcysoft/mobile/mobileEncryptLogin.ht?device=%2BEJrANE72jTm7cIh8zjjiWWB5rXrZeX7&password=7WffoT%2BMYFTK0LTTxfRF8Q%3D%3D&describe=f4%2FVYyhKdHop%2BS4wI9br1w%3D%3D&production=true&username=JNHDhICEhFAIrvzFU1bqJw%3D%3D&imei=866146033812920&mac=50%3A8f%3A4c%3Afb%3A42%3Abe&clientVersion=193&OperType=Android&deviceType=MI%206%7C7.1.1";
 
+        String url2 = "https://app.nm139.com:8446/nmyd/xcysoft/mobile/mobileEncryptLogin.ht?deviceType=MI%206%7C8.0.0&password=wPYXFetjQ%2B8%3D&production=true&OperType=Android&Setting=false&imei=866146033812920&describe=f5buv9SmHsLf%2FnjBvLykfw%3D%3D&clientVersion=2120&device=jG7I%2BSEGbYglMnvxprafAbeGzmdw977Z&mac=50%3A8f%3A4c%3Afb%3A42%3Abe&token=IhtZvsZsQ2i0F9F0VhkvKV0K4sK8qMdY69ujTcItZ%2BFe1euUsmjrPQ%3D%3D&username=Nl70rVDGFjAJk6QaYt%2BEng%3D%3D";
+//        String url = "https://app.nm139.com:8443/nmydoa/nmydoa.html";
 //        OkHttpUtils.get().url(url1).build().execute(new MyStringCallback());
         OkHttpUtils.get().url(url).build().execute(new MyStringCallback());
 
-        OkGo.<String>get(url).execute(new com.lzy.okgo.callback.StringCallback() {
-            @Override
-            public void onSuccess(com.lzy.okgo.model.Response<String> response) {
-                mTv.setText(response.body());
-            }
-
-            @Override
-            public void onError(com.lzy.okgo.model.Response<String> response) {
-                mTv.setText(response.body());
-            }
-        });
+//        OkGo.<String>get(url).execute(new com.lzy.okgo.callback.StringCallback() {
+//            @Override
+//            public void onSuccess(com.lzy.okgo.model.Response<String> response) {
+//                mTv.setText(response.body());
+//            }
+//
+//            @Override
+//            public void onError(com.lzy.okgo.model.Response<String> response) {
+//                mTv.setText(response.body());
+//            }
+//        });
     }
 
     public void getUser(View view) {
