@@ -119,10 +119,44 @@ public class OkHttpUtils {
         return this;
     }
 
+    public OkHttpUtils addNetworkInterceptor(Interceptor interceptor) {
+        if (mOkHttpClient != null && interceptor != null) {
+            mOkHttpClient = mOkHttpClient.newBuilder().addNetworkInterceptor(interceptor).build();
+        }
+        return this;
+    }
+
+    public OkHttpUtils removeNetworkInterceptor(Interceptor interceptor) {
+        if (mOkHttpClient != null && interceptor != null) {
+            OkHttpClient.Builder builder = mOkHttpClient.newBuilder();
+            builder.networkInterceptors().remove(interceptor);
+            mOkHttpClient = builder.build();
+        }
+        return this;
+    }
+
+    public OkHttpUtils removeInterceptor(Interceptor interceptor) {
+        if (mOkHttpClient != null && interceptor != null) {
+            OkHttpClient.Builder builder = mOkHttpClient.newBuilder();
+            builder.interceptors().remove(interceptor);
+            mOkHttpClient = builder.build();
+        }
+        return this;
+    }
+
     public OkHttpUtils addInterceptors(List<Interceptor> interceptors) {
         if (interceptors != null) {
             for (Interceptor interceptor : interceptors) {
                 addInterceptor(interceptor);
+            }
+        }
+        return this;
+    }
+
+    public OkHttpUtils addNetworkInterceptors(List<Interceptor> interceptors) {
+        if (interceptors != null) {
+            for (Interceptor interceptor : interceptors) {
+                addNetworkInterceptor(interceptor);
             }
         }
         return this;
