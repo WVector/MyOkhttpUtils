@@ -19,10 +19,10 @@
             </intent-filter>
 
         </activity>
-        <activity android:name=".ui.KotlinActivity">
+        <!--<activity android:name=".ui.KotlinActivity">-->
 
 
-        </activity>
+        <!--</activity>-->
     </application>
 
 </manifest>

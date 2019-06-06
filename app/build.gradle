@@ -33,7 +33,7 @@ dependencies {
 
 //    compile 'com.qianwen:okhttp-utils:3.9.0'
 
-//    compile project(':okhttp-utils')
+    compile project(':okhttp-utils')
 
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:" + rootProject.kotlin_version
 
@@ -47,7 +47,7 @@ dependencies {
 
     compile 'com.lzy.net:okgo:3.0.4'
 
-    compile project(':okhttp-utils-kotlin')
+//    compile project(':okhttp-utils-kotlin')
 }
 repositories {
     mavenCentral()
