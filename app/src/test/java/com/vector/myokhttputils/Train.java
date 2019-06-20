@@ -11,7 +11,7 @@ public class Train {
      * trainid : 771502221990012726341038393
      * recordid : 9815022219900127263410384098
      * collecttime : 2017-07-12 10:38:40
-     * idcard : 150222199001272634
+     * idcard :
      * itemcode : 1-1
      * subject : 4
      * traintimes : 0

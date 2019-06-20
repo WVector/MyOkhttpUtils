@@ -1,7 +1,5 @@
 package com.vector.myokhttputils;
 
-import com.vector.myokhttputils.learncar.Pic;
-
 import org.junit.Test;
 
 /**
@@ -18,7 +16,8 @@ public class PicTest {
 //        }
 
 
-        System.out.println(CoderUtils.getMD5(Pic.value4));
+//        System.out.println(CoderUtils.getMD5(Pic.value4));
+
 
     }
 

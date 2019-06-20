@@ -13,7 +13,7 @@ public class Commit {
 
     /**
      * datatype : 2
-     * idcard : 150222199001272634
+     * idcard :
      * itemcode : 1-1
      * coachfaceid :
      * inphotoid : d4a0430d1d7e4b1eb507aa357c1ad93a
