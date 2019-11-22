@@ -273,7 +273,7 @@ public class OkHttpUtils {
             HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(tag);
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
             if (mOkHttpClient != null) {
-                mOkHttpClient = mOkHttpClient.newBuilder().addNetworkInterceptor(loggingInterceptor).build();
+                mOkHttpClient = mOkHttpClient.newBuilder().addInterceptor(loggingInterceptor).build();
             }
         }
 

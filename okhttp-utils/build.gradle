@@ -50,7 +50,9 @@ publish {
     artifactId = 'okhttp-utils'//项目名称
     //yimiao
 //    publishVersion = '3.7.5'//版本号
-    publishVersion = '3.9.4'//版本号
+    // 3.9.3 3.9.4 日志拦截器的添加有问题，应该是 addInterceptor 而不是 addNetworkInterceptor
+    // 所以这两版本不能使用，3.9.5 修改了 1，TLS1.2 在4.+的问题，2，日志拦截器的添加顺序
+    publishVersion = '3.9.5'//版本号
     desc = '修改了鸿洋的okttp-utils的一些代码'
     website = 'https://github.com/WVector/MyOkhttpUtils'
 }
