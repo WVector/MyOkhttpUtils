@@ -23,7 +23,8 @@ public class App extends Application {
         OkHttpUtils.getInstance()
                 .init(this)
                 .debug(true, "okhttp")
-                .timeout(20 * 1000L);
+                .timeout(20 * 1000L)
+                .enableTlS12();
 //                .setGlobalParams(new MyGlobalParams());
 //                .setCertificate("8445.cer",this);
 //                .setCertificates(getOpenIn("8445.cer"));

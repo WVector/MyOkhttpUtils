@@ -1,6 +1,8 @@
 package com.zhy.http.okhttp;
 
 import android.content.Context;
+import android.os.Build;
+import android.util.Log;
 
 import com.zhy.http.okhttp.builder.GetBuilder;
 import com.zhy.http.okhttp.builder.GlobalParams;
@@ -15,9 +17,11 @@ import com.zhy.http.okhttp.intercepter.HttpLoggingInterceptor;
 import com.zhy.http.okhttp.intercepter.NetInterceptor;
 import com.zhy.http.okhttp.request.RequestCall;
 import com.zhy.http.okhttp.utils.Platform;
+import com.zhy.http.okhttp.utils.TlS12SocketFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,13 +29,16 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocketFactory;
 
 import okhttp3.Call;
+import okhttp3.ConnectionSpec;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Response;
+import okhttp3.TlsVersion;
 
 /**
  * Created by zhy on 15/8/17.
@@ -208,6 +215,36 @@ public class OkHttpUtils {
                     .sslSocketFactory(sslSocketFactory)
                     .build();
         }
+        return this;
+    }
+
+    public OkHttpUtils enableTlS12() {
+        if (mOkHttpClient == null) {
+            return this;
+        }
+        if (Build.VERSION.SDK_INT >= 16 && Build.VERSION.SDK_INT < 22) {
+            try {
+                OkHttpClient.Builder newBuilder = mOkHttpClient.newBuilder();
+                SSLContext sc = SSLContext.getInstance("TLSv1.2");
+                sc.init(null, null, null);
+
+                newBuilder.sslSocketFactory(new TlS12SocketFactory(sc.getSocketFactory()));
+
+                ConnectionSpec cs = new ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
+                        .tlsVersions(TlsVersion.TLS_1_2)
+                        .build();
+
+                List<ConnectionSpec> specs = new ArrayList<>();
+                specs.add(cs);
+                specs.add(ConnectionSpec.COMPATIBLE_TLS);
+                specs.add(ConnectionSpec.CLEARTEXT);
+                newBuilder.connectionSpecs(specs);
+                mOkHttpClient = newBuilder.build();
+            } catch (Exception exc) {
+                Log.e("OkHttp", "Error while setting TLS 1.2", exc);
+            }
+        }
+
         return this;
     }
 
