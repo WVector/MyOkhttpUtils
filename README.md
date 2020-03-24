@@ -1,2 +1,2 @@
 # MyOkhttpUtils
-修改了鸿洋的okttp-utils的一些代码
+个人 okhttps工具框架，支持kotlin
